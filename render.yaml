@@ -1,0 +1,23 @@
+# Blueprint Render: Web Service Laravel + Dockerfile.
+# Isi rahasia di dashboard Render (APP_KEY, database, dll.). Lihat panduan deploy di dokumentasi Render.
+services:
+  - type: web
+    name: os-tiket
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /up
+    preDeployCommand: php artisan migrate --force
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: warning
+      - key: DB_CONNECTION
+        value: pgsql
